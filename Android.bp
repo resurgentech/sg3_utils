@@ -5,7 +5,6 @@ cc_defaults {
         "-static",
         "-Wall",
     ],
-    local_include_dirs: ["include"],
     multilib: {
         lib32: {
             cflags: [
@@ -40,6 +39,7 @@ cc_library_static {
         "-Werror",
         "-Wno-unused-parameter",
     ],
+    local_include_dirs: ["include"],
     export_include_dirs: ["."],
     srcs: [
         "lib/sg_cmds_basic2.c",
@@ -61,7 +61,7 @@ cc_binary {
     defaults: ["sg3_defaults"],
     static_libs: ["libsgutils2"],
     srcs: [
-        "sg_read_buffer.c",
+        "src/sg_read_buffer.c",
     ],
     local_include_dirs: ["include"]
 }
