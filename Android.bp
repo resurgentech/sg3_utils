@@ -1,0 +1,67 @@
+cc_defaults {
+    name: "sg3_defaults",
+    cflags: [
+        "-O3",
+        "-static",
+        "-Wall",
+    ],
+    local_include_dirs: ["include"],
+    multilib: {
+        lib32: {
+            cflags: [
+                "-DBITS_PER_LONG=32",
+                "-DCONFIG_32BIT",
+            ],
+        },
+        lib64: {
+            cflags: [
+                "-DBITS_PER_LONG=64",
+                "-DCONFIG_64BIT",
+            ],
+        },
+    },
+    arch: {
+        mips: {
+            enabled: false,
+        },
+        mips64: {
+            enabled: false,
+        },
+    },
+
+    tidy_checks: ["-clang-analyzer*"],
+}
+
+cc_library_static {
+    name: "libsgutils2",
+    cflags: [
+        "-O3",
+        "-DUSE_MMAP",
+        "-Werror",
+        "-Wno-unused-parameter",
+    ],
+    export_include_dirs: ["."],
+    srcs: [
+        "lib/sg_cmds_basic2.c",
+        "lib/sg_cmds_basic.c",
+        "lib/sg_cmds_extra.c",
+        "lib/sg_cmds_mmc.c",
+        "lib/sg_io_linux.c",
+        "lib/sg_lib.c",
+        "lib/sg_lib_data.c",
+        "lib/sg_pt_common.c",
+        "lib/sg_pt_linux.c",
+    ],
+    sdk_version: "9",
+    stl: "none",
+}
+
+cc_binary {
+    name: "sg_read_buffer",
+    defaults: ["sg3_defaults"],
+    static_libs: ["libsgutils2"],
+    srcs: [
+        "sg_read_buffer.c",
+    ],
+    local_include_dirs: ["include"]
+}
