@@ -65,3 +65,23 @@ cc_binary {
     ],
     local_include_dirs: ["include"]
 }
+
+cc_binary {
+    name: "sg_write_buffer2",
+    defaults: ["sg3_defaults"],
+    static_libs: ["libsgutils2"],
+    srcs: [
+        "src/sg_write_buffer.c",
+    ],
+    local_include_dirs: ["include"]
+}
+
+cc_binary {
+    name: "sg_unmap",
+    defaults: ["sg3_defaults"],
+    static_libs: ["libsgutils2"],
+    srcs: [
+        "src/sg_unmap.c",
+    ],
+    local_include_dirs: ["include"]
+}
